@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temerario - Superdeportivo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #0d0d0d;
+            color: white;
+            text-align: center;
+            overflow-x: hidden;
+        }
+        .header {
+            background: black;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .hero {
+            background: url('c:\Users\edgar\Downloads\images (1).jpg') no-repeat center center/cover;
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 48px;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px rgba(255,255,255,0.8);
+            animation: fadeIn 2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .about {
+            padding: 50px 20px;
+            background: #181818;
+            border-radius: 10px;
+            margin: 20px auto;
+            width: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .about-text {
+            width: 60%;
+        }
+        .about img {
+            width: 35%;
+            border-radius: 10px;
+        }
+        .specs {
+            padding: 50px 20px;
+        }
+        .cta {
+            margin-top: 30px;
+        }
+        .cta a {
+            text-decoration: none;
+            color: white;
+            background: red;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 20px;
+        }
+        .cta a:hover {
+            background: darkred;
+        }
+        .map, .contact-form {
+            margin: 50px auto;
+            width: 80%;
+        }
+        .carousel {
+            width: 70%;
+            margin: auto;
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 20px 0;
+        }
+        .carousel img {
+            width: 100%;
+            max-width: 250px;
+            margin: 0 auto;
+            border-radius: 10px;
+            transition: transform 0.5s;
+        }
+        .carousel img:hover {
+            transform: scale(1.5);
+        }
+        .video {
+            margin-top: 50px;
+        }
+        .video iframe {
+            width: 75%;
+            height: 400px;
+            border-radius: 10px;
+        }
+        .contact-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: red;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        /* Ajuste de formulario de contacto */
+        .contact-form {
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            width: 50%;
+            margin: auto;
+            text-align: left;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+        }
+        .contact-form button {
+            width: 100%;
+            padding: 15px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .contact-form button:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Temerario - La Máquina Definitiva</div>
+    <div class="hero">Velocidad, Potencia, Diseño</div>
+    
+    <section class="about">
+        <div class="about-text">
+            <h2>TEMERARIO</h2>
+            <p>Lamborghini presenta el Temerario, el primer superdeportivo de la historia de la marca de Sant’Agata Bolognese, equipado con un motor V8 biturbo combinado con tres motores eléctricos que ofrece una potencia máxima total de 920 CV. El segundo vehículo de la gama HPEV (vehículo eléctrico de alto rendimiento) se sitúa en la cumbre del placer de conducción gracias a unas prestaciones y un confort únicos en su categoría. Además, estrena nuevos cánones estilísticos en cuanto a diseño, ofreciendo posibilidades de personalización sin precedentes y contenidos inéditos de conectividad.</p>
+        </div>
+        <img src="c:\Users\edgar\Downloads\sketch1.webp" alt="Alessandro Veloci">
+    </section>
+    
+    <section class="specs">
+        <h2>Especificaciones</h2>
+        <ul>
+            <li>Motor V12 6.5L - 800 HP</li>
+            <li>0-100 km/h en 2.8 segundos</li>
+            <li>Velocidad máxima: 350 km/h</li>
+        </ul>
+        <div class="cta">
+            <a href="https://www.lamborghini.com" target="_blank">Descubre más</a>
+        </div>
+    </section>
+    
+    <section class="carousel">
+        <img src="c:\Users\edgar\Downloads\frente_temer.jpeg" alt="Temerario Frente">
+        <img src="c:\Users\edgar\Downloads\lado_temer.jpg" alt="Temerario Lateral">
+        <img src="c:\Users\edgar\Downloads\s3.webp" alt="Temerario Interior">
+    </section>
+    
+    <section class="video">
+        <h2>Video Promocional</h2>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/6tgeJ5ZPbL8?si=gOLEHYEiBqG2mJTq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </section>
+    
+    <section class="map">
+        <h2>Encuentra un concesionario</h2>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d481808.1110695941!2d-99.7587633265625!3d19.363701900000013!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff8c51a68677%3A0x38bc755f8b7be620!2sLamborghini%20M%C3%A9xico!5e0!3m2!1ses!2smx!4v1743450579515!5m2!1ses!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+    
+    <section class="contact-form">
+        <h2>Contáctanos</h2>
+        <form>
+            <input type="text" name="nombre" placeholder="Tu nombre" required>
+            <input type="email" name="email" placeholder="Tu correo electrónico" required>
+            <textarea name="mensaje" placeholder="Tu mensaje" rows="5" required></textarea>
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+    
+    <div class="contact-button">📩</div>
+</body>
+</html>
