@@ -123,6 +123,22 @@
         .specs .cta a:hover {
             background: darkred;
         }
+        .specs table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.specs th, .specs td {
+    border: 1px solid white;
+    padding: 10px;
+    text-align: left;
+}
+
+.specs th {
+    background-color: red;
+}
+
     </style>
     <script>
         function showSection(sectionId) {
@@ -166,15 +182,40 @@
         </div>
         <div class="specs">
             <h3>Especificaciones Técnicas</h3>
-            <ul>
-                <li>Motor: V12 6.5L híbrido</li>
-                <li>Potencia: 950 HP</li>
-                <li>Velocidad Máxima: 370 km/h</li>
-                <li>Aceleración: 0-100 km/h en 2.5 segundos</li>
-                <li>Transmisión: Automática de 7 velocidades</li>
-                <li>Chasis: Fibra de carbono y titanio</li>
-                <li>Sistema de frenos: Cerámicos de alto rendimiento</li>
-            </ul>
+            <table>
+                <tr>
+                    <th>Característica</th>
+                    <th>Valor</th>
+                </tr>
+                <tr>
+                    <td>Motor</td>
+                    <td>V12 6.5L híbrido</td>
+                </tr>
+                <tr>
+                    <td>Potencia</td>
+                    <td>950 HP</td>
+                </tr>
+                <tr>
+                    <td>Velocidad Máxima</td>
+                    <td>370 km/h</td>
+                </tr>
+                <tr>
+                    <td>Aceleración (0-100 km/h)</td>
+                    <td>2.5 segundos</td>
+                </tr>
+                <tr>
+                    <td>Transmisión</td>
+                    <td>Automática de 7 velocidades</td>
+                </tr>
+                <tr>
+                    <td>Chasis</td>
+                    <td>Fibra de carbono y titanio</td>
+                </tr>
+                <tr>
+                    <td>Sistema de frenos</td>
+                    <td>Cerámicos de alto rendimiento</td>
+                </tr>
+            </table>
             <div class="cta">
                 <a href="https://www.lamborghini.com" target="_blank">Ver más</a>
             </div>
@@ -198,6 +239,10 @@
                 <input type="email" name="email" placeholder="Tu correo electrónico" required>
                 <textarea name="mensaje" placeholder="Tu mensaje" rows="5" required></textarea>
                 <button type="submit">Enviar</button>
+                <p>También puedes contactarnos por correo electronico:  
+                    <a href="https://outlook.office.com/mail/" target="_blank">Lamborghini Oficial</a>
+                 </p>
+                 
             </form>
         </div>
     </section>
