@@ -1,85 +1,278 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Temerario - Proyecto JavaScript</title>
-    <script type="text/javascript">
-        // Archivo JavaScript simulado (como si fuera externo)
-        
-        // Declaración de variables
-        var modelo = "Temerario"; // String
-        var velocidadMax = 370; // Número
-        var electrico = true; // Booleano
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Temerario - Superdeportivo</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #0d0d0d;
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+    }
+    .header {
+      background: black;
+      padding: 35px;
+      font-size: 42px;
+      font-weight: bold;
+    }
+    .nav {
+      background: #181818;
+      padding: 18px;
+      display: flex;
+      justify-content: center;
+      gap: 33px;
+    }
+    .nav a {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      padding: 10px 15px;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .nav a:hover {
+      background: red;
+      border-radius: 5px;
+    }
+    .section {
+      display: none;
+      padding: 50px;
+    }
+    .active {
+      display: block;
+    }
+    .about {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 50px 20px;
+    }
+    .about-text {
+      max-width: 50%;
+      text-align: center;
+    }
+    .about img {
+      max-width: 40%;
+      border-radius: 10px;
+    }
+    .carousel {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      padding: 20px;
+      flex-wrap: wrap;
+    }
+    .carousel img {
+      width: 250px;
+      border-radius: 10px;
+    }
+    .specs {
+      text-align: left;
+      max-width: 60%;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    .specs h3 {
+      color: red;
+      text-align: center;
+    }
+    .specs table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    .specs th, .specs td {
+      border: 1px solid white;
+      padding: 10px;
+      text-align: left;
+    }
+    .specs th {
+      background-color: red;
+    }
+    .specs .cta {
+      text-align: center;
+      margin-top: 15px;
+    }
+    .specs .cta a {
+      text-decoration: none;
+      color: white;
+      background: red;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 18px;
+    }
+    .specs .cta a:hover {
+      background: darkred;
+    }
+    .contact-form {
+      max-width: 50%;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: none;
+    }
+    .contact-form button {
+      width: 100%;
+      padding: 15px;
+      background-color: red;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+  <!-- Script externo simulado (puede ir en otro archivo también) -->
+  <script type="text/javascript">
+    function showSection(sectionId) {
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById(sectionId).classList.add('active');
+    }
 
-        // Mecanismo de escape
-        var descripcion = "El modelo se llama \"Temerario\" y es increíble.";
+    document.addEventListener("DOMContentLoaded", () => {
+      showSection('inicio');
+    });
 
-        // Operadores
-        var potencia = 920;
-        potencia += 30; // Asignación e incremento
-        potencia--; // Decremento
+    // === CÓDIGO PARA LA RÚBRICA ===
 
-        // Operadores lógicos
-        var esHibrido = true;
-        var esDeportivo = true;
-        var destacado = esHibrido && esDeportivo; // AND
-        var mostrar = !electrico || velocidadMax > 300; // OR y negación
+    // Variables
+    var modelo = "Temerario";
+    var velocidad = 370;
+    var hibrido = true;
 
-        // Comentario: función que muestra info del auto
-        function mostrarInformacion() {
-            if (potencia > 900) {
-                document.getElementById("info").innerHTML = "Este auto es una bestia de " + potencia + " caballos.";
-            } else {
-                document.getElementById("info").innerHTML = "Potencia estándar.";
-            }
+    // Mecanismo de escape
+    var frase = "El modelo se llama \"Temerario\".";
 
-            // Operaciones con cadenas
-            var mensaje = modelo.toUpperCase().concat(" alcanza ").concat(velocidadMax.toString()).concat(" km/h");
-            mensaje += "<br>Letra inicial: " + modelo.charAt(0);
-            mensaje += "<br>Subcadena: " + modelo.substring(0, 4);
-            mensaje += "<br>Separado: " + descripcion.split(" ")[2];
+    // Operadores
+    var potencia = 920;
+    potencia += 30;
+    potencia--;
+    var esRapido = velocidad > 300;
+    var premium = esRapido && hibrido;
 
-            // Arreglos
-            var colores = ["Rojo", "Negro", "Gris"];
-            colores.push("Blanco"); // Agrega
-            colores.shift(); // Elimina primero
-            colores.unshift("Amarillo"); // Agrega al inicio
-            colores.reverse(); // Reversa
+    // Función para mostrar todo al hacer clic
+    function mostrarDetalles() {
+      var info = "Modelo: " + modelo + "<br>";
+      info += "Potencia: " + potencia + " HP<br>";
+      info += "Frase: " + frase + "<br>";
+      
+      // Arreglos
+      var colores = ["Rojo", "Negro", "Gris"];
+      colores.push("Blanco");
+      colores.shift();
+      colores.reverse();
+      info += "Colores: " + colores.join(" - ") + "<br>";
 
-            mensaje += "<br>Colores disponibles: " + colores.join(" - ");
-            mensaje += "<br>Total de colores: " + colores.length;
+      // Números
+      var precio = 3456789.9;
+      info += "Precio: $" + precio.toFixed(2) + "<br>";
+      info += "¿Es un número?: " + !isNaN(precio) + "<br>";
 
-            // Números
-            var precio = 2599999.456;
-            mensaje += "<br>Precio: $" + precio.toFixed(2);
-            mensaje += "<br>¿Es número?: " + !isNaN(precio);
+      // Strings
+      info += "Mayúsculas: " + modelo.toUpperCase() + "<br>";
+      info += "Minúsculas: " + modelo.toLowerCase() + "<br>";
+      info += "charAt(0): " + modelo.charAt(0) + "<br>";
+      info += "substring(0,4): " + modelo.substring(0,4) + "<br>";
+      info += "split: " + frase.split(" ")[2] + "<br>";
 
-            // for
-            mensaje += "<br><br>Recorriendo colores con for:<br>";
-            for (var i = 0; i < colores.length; i++) {
-                mensaje += "- " + colores[i] + "<br>";
-            }
+      // for
+      for (var i = 0; i < colores.length; i++) {
+        info += "Color[" + i + "]: " + colores[i] + "<br>";
+      }
 
-            // for...in
-            var auto = {modelo: "Temerario", año: 2025, marca: "Lamborghini"};
-            mensaje += "<br>Propiedades del auto:<br>";
-            for (var clave in auto) {
-                mensaje += clave + ": " + auto[clave] + "<br>";
-            }
+      // for...in
+      var auto = {marca: "Lamborghini", modelo: "Temerario", año: 2025};
+      for (var clave in auto) {
+        info += clave + ": " + auto[clave] + "<br>";
+      }
 
-            document.getElementById("info").innerHTML += "<br><br>" + mensaje;
-        }
-    </script>
+      document.getElementById("info-extra").innerHTML = info;
+    }
+  </script>
 </head>
 <body>
+  <noscript>
+    <p>Tu navegador no soporta JavaScript. Actívalo para ver el contenido completo.</p>
+  </noscript>
 
-<noscript>
-    Tu navegador no soporta JavaScript o está desactivado. Actívalo para continuar.
-</noscript>
+  <div class="header">Temerario - La Máquina Definitiva</div>
+  <nav class="nav">
+    <a onclick="showSection('inicio')">Inicio</a>
+    <a onclick="showSection('contacto')">Contacto</a>
+    <a onclick="showSection('ubicacion')">Ubícanos</a>
+  </nav>
 
-<h1 onclick="mostrarInformacion()">Haz clic aquí para conocer el Temerario</h1>
+  <div id="inicio" class="section active">
+    <div class="hero">Velocidad, Potencia, Diseño</div>
+    <section class="about">
+      <div class="about-text">
+        <h2 onclick="mostrarDetalles()">TEMERARIO</h2>
+        <p>Haz clic en el título para más detalles.</p>
+        <p>Lamborghini presenta el Temerario, equipado con un motor V8 biturbo y tres motores eléctricos para 950HP.</p>
+      </div>
+      <img src="https://raw.githubusercontent.com/EdgarJazyel/LAMBORGHINI-TEMERARIO/refs/heads/gh-pages/sketch1.webp" alt="Temerario" />
+    </section>
 
-<p id="info"></p>
+    <div class="carousel">
+      <img src="https://github.com/EdgarJazyel/LAMBORGHINI-TEMERARIO/blob/gh-pages/frente_temer.jpeg?raw=true" />
+      <img src="https://github.com/EdgarJazyel/LAMBORGHINI-TEMERARIO/blob/gh-pages/lado_temer.jpg?raw=true" />
+      <img src="https://raw.githubusercontent.com/EdgarJazyel/LAMBORGHINI-TEMERARIO/refs/heads/gh-pages/temerario_08.webp" />
+    </div>
 
+    <div class="specs">
+      <h3>Especificaciones Técnicas</h3>
+      <table>
+        <tr><th>Característica</th><th>Valor</th></tr>
+        <tr><td>Motor</td><td>V12 6.5L híbrido</td></tr>
+        <tr><td>Potencia</td><td>950 HP</td></tr>
+        <tr><td>Velocidad Máxima</td><td>370 km/h</td></tr>
+      </table>
+      <div class="cta">
+        <a href="https://www.lamborghini.com" target="_blank">Ver más</a>
+      </div>
+    </div>
+
+    <div id="info-extra" style="margin-top: 30px; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;"></div>
+
+    <div class="video">
+      <h2>Video Promocional</h2>
+      <iframe width="75%" height="400px" src="https://www.youtube.com/embed/6tgeJ5ZPbL8" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <section id="ubicacion" class="section">
+    <h2>Encuentra un concesionario</h2>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8..." width="600" height="450" style="border:0;" allowfullscreen loading="lazy"></iframe>
+  </section>
+
+  <section id="contacto" class="section">
+    <h2>Contáctanos</h2>
+    <div class="contact-form">
+      <form>
+        <input type="text" name="nombre" placeholder="Tu nombre" required />
+        <input type="email" name="email" placeholder="Tu correo electrónico" required />
+        <textarea name="mensaje" placeholder="Tu mensaje" rows="5" required></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
+  </section>
 </body>
 </html>
