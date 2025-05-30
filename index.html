@@ -16,114 +16,93 @@
         }
         .header {
             background: black;
-            padding: 20px;
-            font-size: 24px;
+            padding: 35px;
+            font-size: 42px;
             font-weight: bold;
         }
-        .hero {
-            background: url('c:\Users\edgar\Downloads\images (1).jpg') no-repeat center center/cover;
-            height: 80vh;
+        .nav {
+            background: #181818;
+            padding: 18px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            font-size: 48px;
-            font-weight: bold;
-            text-shadow: 2px 2px 10px rgba(255,255,255,0.8);
-            animation: fadeIn 2s ease-in-out;
+            gap: 33px;
+        }
+        .nav a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            padding: 10px 15px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .nav a:hover {
+            background: red;
+            border-radius: 5px;
+        }
+        .section {
+            display: none;
+            padding: 50px;
+            animation: fadeIn 1s ease-in-out;
         }
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .active {
+            display: block;
         }
         .about {
-            padding: 50px 20px;
-            background: #181818;
-            border-radius: 10px;
-            margin: 20px auto;
-            width: 80%;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 50px 20px;
         }
         .about-text {
-            width: 60%;
+            max-width: 50%;
+            text-align: center;
         }
         .about img {
-            width: 35%;
+            max-width: 40%;
+            border-radius: 10px;
+        }
+        .carousel {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+        }
+        .carousel img {
+            width: 250px;
             border-radius: 10px;
         }
         .specs {
-            padding: 50px 20px;
-        }
-        .cta {
-            margin-top: 30px;
-        }
-        .cta a {
-            text-decoration: none;
-            color: white;
-            background: red;
-            padding: 15px 30px;
-            border-radius: 5px;
-            font-size: 20px;
-        }
-        .cta a:hover {
-            background: darkred;
-        }
-        .map, .contact-form {
-            margin: 50px auto;
-            width: 80%;
-        }
-        .carousel {
-            width: 70%;
-            margin: auto;
-            display: flex;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            padding: 20px 0;
-        }
-        .carousel img {
-            width: 100%;
-            max-width: 250px;
-            margin: 0 auto;
-            border-radius: 10px;
-            transition: transform 0.5s;
-        }
-        .carousel img:hover {
-            transform: scale(1.5);
-        }
-        .video {
-            margin-top: 50px;
-        }
-        .video iframe {
-            width: 75%;
-            height: 400px;
-            border-radius: 10px;
-        }
-        .contact-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: red;
-            padding: 15px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        /* Ajuste de formulario de contacto */
-        .contact-form {
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            width: 50%;
-            margin: auto;
             text-align: left;
+            max-width: 60%;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .specs h3 {
+            color: red;
+            text-align: center;
+        }
+        .contact-form {
+            max-width: 50%;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
         }
         .contact-form input, .contact-form textarea {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             margin: 10px 0;
-            border-radius: 8px;
+            border-radius: 5px;
             border: none;
-            font-size: 16px;
         }
         .contact-form button {
             width: 100%;
@@ -131,65 +110,250 @@
             background-color: red;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
             cursor: pointer;
+        }
+        .cta {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .cta a {
+            text-decoration: none;
+            color: white;
+            background: red;
+            padding: 10px 20px;
+            border-radius: 5px;
             font-size: 18px;
         }
-        .contact-form button:hover {
-            background-color: darkred;
+        .cta a:hover {
+            background: darkred;
+        }
+        .specs table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .specs th, .specs td {
+            border: 1px solid white;
+            padding: 10px;
+            text-align: left;
+        }
+        .specs th {
+            background-color: red;
+        }
+        .footer {
+            margin-top: 40px;
+            font-size: 0.8em;
+            color: #aaa;
+        }
+        .historial {
+            margin-top: 20px;
+            background-color: #1c1c1c;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .cotizacion-item {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #555;
+        }
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        #contacto form {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
         }
     </style>
 </head>
-<body>
+<body onload="reproducirSonido()">
+
+    <!-- Audio -->
+    <audio id="sonido-inicio" src="https://www.soundjay.com/button/sounds/button-16.mp3"  preload="auto"></audio>
+
+    <!-- Header -->
     <div class="header">Temerario - La Máquina Definitiva</div>
-    <div class="hero">Velocidad, Potencia, Diseño</div>
-    
-    <section class="about">
-        <div class="about-text">
-            <h2>TEMERARIO</h2>
-            <p>Lamborghini presenta el Temerario, el primer superdeportivo de la historia de la marca de Sant’Agata Bolognese, equipado con un motor V8 biturbo combinado con tres motores eléctricos que ofrece una potencia máxima total de 920 CV. El segundo vehículo de la gama HPEV (vehículo eléctrico de alto rendimiento) se sitúa en la cumbre del placer de conducción gracias a unas prestaciones y un confort únicos en su categoría. Además, estrena nuevos cánones estilísticos en cuanto a diseño, ofreciendo posibilidades de personalización sin precedentes y contenidos inéditos de conectividad.</p>
+
+    <!-- Menú de navegación -->
+    <nav class="nav">
+        <a onclick="showSection('inicio')">Inicio</a>
+        <a onclick="showSection('cotizaciones')">Cotizaciones</a>
+        <a onclick="showSection('contacto')">Contacto</a>
+        <a onclick="showSection('ubicacion')">Ubícanos</a>
+    </nav>
+
+    <!-- Sección Inicio -->
+    <div id="inicio" class="section active">
+        <div class="hero">Velocidad, Potencia, Diseño</div>
+        <section class="about">
+            <div class="about-text">
+                <h2>TEMERARIO</h2>
+                <p>Lamborghini presenta el Temerario, el primer superdeportivo de la historia de la marca 
+                    de Sant’Agata Bolognese, equipado con un motor V8 biturbo combinado con tres motores 
+                    eléctricos que ofrece una potencia máxima total de 920 CV.</p>
+            </div>
+            <img src="https://raw.githubusercontent.com/EdgarJazyel/LAMBORGHINI-TEMERARIO/refs/heads/gh-pages/sketch1.webp"  alt="Temerario">
+        </section>
+        <div class="carousel">
+            <img src="https://github.com/EdgarJazyel/LAMBORGHINI-TEMERARIO/blob/gh-pages/frente_temer.jpeg?raw=true" alt="Frente Temerario">
+            <img src="https://github.com/EdgarJazyel/LAMBORGHINI-TEMERARIO/blob/gh-pages/lado_temer.jpg?raw=true" alt="Lateral Temerario">
+            <img src="https://raw.githubusercontent.com/EdgarJazyel/LAMBORGHINI-TEMERARIO/refs/heads/gh-pages/temerario_08.webp" alt="Interior Temerario">
         </div>
-        <img src="c:\Users\edgar\Downloads\sketch1.webp" alt="Alessandro Veloci">
-    </section>
-    
-    <section class="specs">
-        <h2>Especificaciones</h2>
-        <ul>
-            <li>Motor V12 6.5L - 800 HP</li>
-            <li>0-100 km/h en 2.8 segundos</li>
-            <li>Velocidad máxima: 350 km/h</li>
-        </ul>
-        <div class="cta">
-            <a href="https://www.lamborghini.com" target="_blank">Descubre más</a>
+        <div class="specs">
+            <h3>Especificaciones Técnicas</h3>
+            <table>
+                <tr><th>Característica</th><th>Valor</th></tr>
+                <tr><td>Motor</td><td>V12 6.5L híbrido</td></tr>
+                <tr><td>Potencia</td><td>950 HP</td></tr>
+                <tr><td>Velocidad Máxima</td><td>370 km/h</td></tr>
+                <tr><td>Aceleración (0-100 km/h)</td><td>2.5 segundos</td></tr>
+                <tr><td>Transmisión</td><td>Automática de 7 velocidades</td></tr>
+                <tr><td>Chasis</td><td>Fibra de carbono y titanio</td></tr>
+                <tr><td>Sistema de frenos</td><td>Cerámicos de alto rendimiento</td></tr>
+            </table>
+            <div class="cta"><a href="https://www.lamborghini.com" target="_blank">Ver más</a></div>
         </div>
-    </section>
-    
-    <section class="carousel">
-        <img src="c:\Users\edgar\Downloads\frente_temer.jpeg" alt="Temerario Frente">
-        <img src="c:\Users\edgar\Downloads\lado_temer.jpg" alt="Temerario Lateral">
-        <img src="c:\Users\edgar\Downloads\s3.webp" alt="Temerario Interior">
-    </section>
-    
-    <section class="video">
-        <h2>Video Promocional</h2>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/6tgeJ5ZPbL8?si=gOLEHYEiBqG2mJTq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </section>
-    
-    <section class="map">
+        <div class="video">
+            <h2>Video Promocional</h2>
+            <iframe width="75%" height="400px" src="https://www.youtube.com/embed/6tgeJ5ZPbL8" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <p class="footer">Marca registrada &copy; Lamborghini 2025. Todos los derechos reservados.</p>
+    </div>
+
+    <!-- Sección Ubicación -->
+    <section id="ubicacion" class="section">
         <h2>Encuentra un concesionario</h2>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d481808.1110695941!2d-99.7587633265625!3d19.363701900000013!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff8c51a68677%3A0x38bc755f8b7be620!2sLamborghini%20M%C3%A9xico!5e0!3m2!1ses!2smx!4v1743450579515!5m2!1ses!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d481808.1110695941!2d-99.7587633265625!3d19.363701900000013!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff8c51a68677%3A0x38bc755f8b7be620!2sLamborghini%20M%C3%A9xico!5e0!3m2!1ses!2smx!4v1743450579515!5m2!1ses!2smx" width="600" height="450" style="border:0;" allowfullscreen loading="lazy"></iframe>
     </section>
-    
-    <section class="contact-form">
+
+    <!-- Sección Contacto -->
+    <section id="contacto" class="section">
         <h2>Contáctanos</h2>
-        <form>
-            <input type="text" name="nombre" placeholder="Tu nombre" required>
-            <input type="email" name="email" placeholder="Tu correo electrónico" required>
-            <textarea name="mensaje" placeholder="Tu mensaje" rows="5" required></textarea>
-            <button type="submit">Enviar</button>
-        </form>
+        <div class="contact-form">
+            <form>
+                <input type="text" name="nombre" placeholder="Tu nombre" required><br>
+                <input type="email" name="email" placeholder="Tu correo electrónico" required><br>
+                <textarea name="mensaje" placeholder="Tu mensaje" rows="5" required></textarea><br>
+                <button type="submit">Enviar</button>
+                <p>También puedes contactarnos por correo electrónico:  
+                    <a href="https://outlook.office.com/mail/" target="_blank">Lamborghini Oficial</a>
+                 </p>
+            </form>
+        </div>
     </section>
-    
-    <div class="contact-button">📩</div>
+
+    <!-- Sección Cotizaciones -->
+    <div id="cotizaciones" class="section">
+        <h2>Generar Cotización</h2>
+        <select id="modelo">
+            <option>Temerario V8</option>
+            <option>Temerario Híbrido</option>
+        </select>
+        <input type="number" id="cantidad" min="1" placeholder="Cantidad">
+        <button onclick="generarPDF()">Generar Cotización (PDF)</button>
+        <button onclick="eliminarCotizaciones()">Eliminar Cotizaciones</button>
+        <div class="historial" id="historial"></div>
+        <div id="pdf-preview"></div>
+    </div>
+
+    <!-- Carga de jsPDF desde CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- Script principal -->
+    <script>
+        // Función para reproducir sonido
+        function reproducirSonido() {
+            const sonido = document.getElementById("sonido-inicio");
+            if (sonido) {
+                sonido.play().catch(e => console.log("Error al reproducir sonido", e));
+            }
+        }
+
+        // Mostrar sección seleccionada
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // Generar PDF usando jsPDF
+        function generarPDF() {
+            // Verificar si jsPDF está cargado
+            if (typeof window.jspdf === "undefined") {
+                alert("jsPDF no está cargado.");
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const modelo = document.getElementById("modelo").value;
+            const cantidad = parseInt(document.getElementById("cantidad").value);
+
+            // Validación
+            if (!modelo || isNaN(cantidad) || cantidad <= 0) {
+                alert("Por favor selecciona un modelo y cantidad válidos.");
+                return;
+            }
+
+            const precioUnitario = modelo.includes("Híbrido") ? 480000 : 400000;
+            const subtotal = cantidad * precioUnitario;
+            const impuestos = subtotal * 0.16;
+            const total = subtotal + impuestos;
+
+            // Contenido del PDF
+            doc.setFontSize(16);
+            doc.text("Cotización Oficial Lamborghini", 20, 20);
+            doc.setFontSize(12);
+            doc.text(`Modelo: ${modelo}`, 20, 40);
+            doc.text(`Cantidad: ${cantidad}`, 20, 50);
+            doc.text(`Precio Unitario: $${precioUnitario.toLocaleString()}`, 20, 60);
+            doc.text(`Subtotal: $${subtotal.toLocaleString()}`, 20, 70);
+            doc.text(`Impuestos (16%): $${impuestos.toLocaleString()}`, 20, 80);
+            doc.text(`Total: $${total.toLocaleString()}`, 20, 90);
+            doc.text("Gracias por su preferencia. Esta cotización es válida por 15 días.", 20, 110);
+            doc.text("[Firma Digital de Lamborghini]", 20, 120);
+
+            // Generar y mostrar PDF
+            const pdfBlob = new Blob([doc.output("arraybuffer")], { type: "application/pdf" });
+            const url = URL.createObjectURL(pdfBlob);
+            document.getElementById("pdf-preview").innerHTML = `<iframe src="${url}"></iframe>`;
+            doc.save(`cotizacion-${modelo}.pdf`);
+
+            guardarCotizacion(`${modelo} x${cantidad} - Total: $${total.toLocaleString()} USD`);
+        }
+
+        // Guardar cotización en localStorage
+        function guardarCotizacion(texto) {
+            let cotizaciones = JSON.parse(localStorage.getItem("cotizaciones")) || [];
+            cotizaciones.push(texto);
+            localStorage.setItem("cotizaciones", JSON.stringify(cotizaciones));
+            actualizarHistorial();
+        }
+
+        // Actualizar historial de cotizaciones
+        function actualizarHistorial() {
+            const contenedor = document.getElementById("historial");
+            const cotizaciones = JSON.parse(localStorage.getItem("cotizaciones")) || [];
+            contenedor.innerHTML = '<h3>Historial de Cotizaciones</h3>' +
+                cotizaciones.map(c => `<div class='cotizacion-item'>${c}</div>`).join("");
+        }
+
+        // Eliminar historial
+        function eliminarCotizaciones() {
+            localStorage.removeItem("cotizaciones");
+            actualizarHistorial();
+        }
+
+        // Mostrar sección activa al cargar
+        document.addEventListener("DOMContentLoaded", () => {
+            showSection('inicio');
+            actualizarHistorial();
+        });
+    </script>
 </body>
 </html>
