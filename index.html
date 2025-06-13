@@ -1,359 +1,668 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Temerario - Superdeportivo</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #0d0d0d;
-            color: white;
-            text-align: center;
-            overflow-x: hidden;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Temerario - Superdeportivo</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+    /* RESET BÁSICO */
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #1a1a1a 0%, #121212 100%);
+        color: #eee;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        scroll-behavior: smooth;
+    }
+
+    .header {
+        background-color: #0d0d0d;
+        color: #e63946;
+        text-align: center;
+        padding: 30px 20px;
+        font-size: 2.8rem;
+        font-family: 'Orbitron', sans-serif;
+        letter-spacing: 4px;
+        text-shadow: 0 0 10px #e63946;
+        user-select: none;
+        box-shadow: 0 2px 8px rgba(230, 57, 70, 0.4);
+    }
+
+    .nav {
+        display: flex;
+        justify-content: center;
+        background-color: #222;
+        padding: 15px 0;
+        gap: 30px;
+        box-shadow: inset 0 -2px 8px rgba(255, 255, 255, 0.05);
+    }
+
+    .nav a {
+        color: #eee;
+        text-decoration: none;
+        padding: 12px 22px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: background 0.35s ease, transform 0.35s ease, color 0.3s ease;
+        box-shadow: 0 0 0 transparent;
+        user-select: none;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+        background-color: #e63946;
+        color: #fff;
+        transform: scale(1.15);
+        box-shadow: 0 4px 15px rgba(230, 57, 70, 0.7);
+    }
+
+    .section {
+        max-width: 960px;
+        margin: 30px auto 60px;
+        padding: 0 20px 40px;
+        display: none;
+        animation: fadeInUp 0.8s ease forwards;
+        background: rgba(255 255 255 / 0.03);
+        border-radius: 12px;
+        box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        backdrop-filter: blur(10px);
+    }
+
+    .section.active {
+        display: block;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
         }
-        .header {
-            background: black;
-            padding: 35px;
-            font-size: 42px;
-            font-weight: bold;
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    input, select, textarea, button {
+        width: 100%;
+        padding: 14px 16px;
+        margin: 12px 0;
+        border-radius: 10px;
+        border: none;
+        font-size: 1rem;
+        font-family: 'Poppins', sans-serif;
+        background: rgba(255 255 255 / 0.1);
+        color: #eee;
+        box-shadow: inset 0 0 8px rgba(255 255 255 / 0.15);
+        transition: background 0.3s ease;
+        outline-offset: 2px;
+    }
+
+    input:focus, select:focus, textarea:focus {
+        background: rgba(230, 57, 70, 0.15);
+        outline: 2px solid #e63946;
+        color: #fff;
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 110px;
+    }
+
+    button {
+        background-color: #e63946;
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.25s ease;
+        box-shadow: 0 4px 15px rgba(230, 57, 70, 0.7);
+        user-select: none;
+        border: none;
+        width: auto;
+        padding: 14px 28px;
+        border-radius: 50px;
+        display: inline-block;
+    }
+
+    button:hover {
+        background-color: #b8323a;
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(184, 50, 58, 0.8);
+    }
+
+    .footer {
+        text-align: center;
+        font-size: 0.85rem;
+        padding: 20px;
+        color: #bbb;
+        background-color: #0d0d0d;
+        user-select: none;
+        box-shadow: inset 0 1px 5px rgba(255 255 255 / 0.05);
+        margin-top: auto;
+    }
+
+    .inicio-imgs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        justify-content: center;
+        margin-top: 30px;
+    }
+
+    .inicio-imgs img {
+        max-width: 320px;
+        border-radius: 15px;
+        box-shadow: 0 0 25px rgba(230, 57, 70, 0.5);
+        transition: transform 0.3s ease;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .inicio-imgs img:hover {
+        transform: scale(1.08) rotate(1deg);
+        box-shadow: 0 0 40px rgba(230, 57, 70, 0.8);
+    }
+
+    #pdf-preview iframe {
+        width: 100%;
+        height: 520px;
+        border: none;
+        border-radius: 14px;
+        box-shadow: 0 0 25px rgba(230, 57, 70, 0.6);
+        user-select: none;
+    }
+
+    .historial {
+        margin-top: 25px;
+        background-color: #1e1e1e;
+        padding: 20px 25px;
+        border-radius: 14px;
+        box-shadow: 0 0 15px rgba(230, 57, 70, 0.4);
+        user-select: none;
+    }
+
+    .historial h3 {
+        color: #e63946;
+        margin-bottom: 18px;
+        font-weight: 700;
+        letter-spacing: 1.1px;
+    }
+
+    .cotizacion-item {
+        text-align: left;
+        padding: 12px 14px;
+        border-bottom: 1px solid #333;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #ddd;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .cotizacion-item:last-child {
+        border-bottom: none;
+    }
+
+    .cotizacion-item button {
+        margin-left: 10px;
+        font-size: 1.1rem;
+        padding: 6px 12px;
+        border-radius: 50px;
+        border: none;
+        background: #2c2c2c;
+        color: #e63946;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        user-select: none;
+    }
+
+    .cotizacion-item button:hover {
+        background-color: #e63946;
+        color: #fff;
+    }
+
+    iframe {
+        width: 100%;
+        height: 420px;
+        border: none;
+        border-radius: 14px;
+        margin-top: 25px;
+        box-shadow: 0 0 30px rgba(230, 57, 70, 0.5);
+        user-select: none;
+    }
+
+    #contacto form {
+        max-width: 480px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .hero {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #e63946;
+        text-align: center;
+        margin-bottom: 35px;
+        text-shadow: 0 0 15px #e63946;
+        user-select: none;
+    }
+
+    .about {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+
+    .about-text {
+        flex: 1 1 320px;
+        max-width: 550px;
+    }
+
+    .about-text h2 {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2.8rem;
+        margin-bottom: 15px;
+        color: #e63946;
+        letter-spacing: 3px;
+        user-select: none;
+    }
+
+    .about-text p {
+        font-size: 1.15rem;
+        line-height: 1.6;
+        color: #ccc;
+        user-select: text;
+    }
+
+    .about img {
+        flex: 1 1 300px;
+        max-width: 350px;
+        border-radius: 20px;
+        box-shadow: 0 0 30px rgba(230, 57, 70, 0.5);
+        user-select: none;
+    }
+
+    .carousel {
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+    }
+
+    .carousel img {
+        width: 280px;
+        border-radius: 18px;
+        box-shadow: 0 0 25px rgba(230, 57, 70, 0.6);
+        transition: transform 0.4s ease;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .carousel img:hover {
+        transform: scale(1.1) translateY(-8px);
+        box-shadow: 0 0 50px rgba(230, 57, 70, 0.9);
+    }
+
+    .specs {
+        margin-bottom: 40px;
+    }
+
+    .specs h3 {
+        font-family: 'Orbitron', sans-serif;
+        color: #e63946;
+        font-size: 2.4rem;
+        margin-bottom: 20px;
+        letter-spacing: 2px;
+        user-select: none;
+        text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .about {
+            flex-direction: column;
+        }
+        .carousel img, .about img {
+            width: 90vw;
+            max-width: none;
         }
         .nav {
-            background: #181818;
-            padding: 18px;
-            display: flex;
-            justify-content: center;
-            gap: 33px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         .nav a {
-            text-decoration: none;
-            color: white;
-            font-size: 18px;
-            padding: 10px 15px;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-        .nav a:hover {
-            background: red;
-            border-radius: 5px;
+            font-size: 1rem;
+            padding: 10px 16px;
         }
         .section {
-            display: none;
-            padding: 50px;
-            animation: fadeIn 1s ease-in-out;
+            margin: 20px 15px 50px;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .active {
-            display: block;
-        }
-        .about {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            padding: 50px 20px;
-        }
-        .about-text {
-            max-width: 50%;
-            text-align: center;
-        }
-        .about img {
-            max-width: 40%;
-            border-radius: 10px;
-        }
-        .carousel {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 20px;
-        }
-        .carousel img {
-            width: 250px;
-            border-radius: 10px;
-        }
-        .specs {
-            text-align: left;
-            max-width: 60%;
-            margin: auto;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-        .specs h3 {
-            color: red;
-            text-align: center;
-        }
-        .contact-form {
-            max-width: 50%;
-            margin: auto;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .contact-form input, .contact-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: none;
-        }
-        .contact-form button {
-            width: 100%;
-            padding: 15px;
-            background-color: red;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .cta {
-            text-align: center;
-            margin-top: 15px;
-        }
-        .cta a {
-            text-decoration: none;
-            color: white;
-            background: red;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 18px;
-        }
-        .cta a:hover {
-            background: darkred;
-        }
-        .specs table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        .specs th, .specs td {
-            border: 1px solid white;
-            padding: 10px;
-            text-align: left;
-        }
-        .specs th {
-            background-color: red;
-        }
-        .footer {
-            margin-top: 40px;
-            font-size: 0.8em;
-            color: #aaa;
-        }
-        .historial {
-            margin-top: 20px;
-            background-color: #1c1c1c;
-            padding: 15px;
-            border-radius: 10px;
-        }
-        .cotizacion-item {
-            text-align: left;
-            padding: 8px;
-            border-bottom: 1px solid #555;
-        }
-        iframe {
-            width: 100%;
-            height: 400px;
-            border: none;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-        #contacto form {
-            max-width: 500px;
-            margin: 0 auto;
-            text-align: center;
-        }
-    </style>
+    }
+</style>
 </head>
 <body onload="reproducirSonido()">
+<audio id="sonido-inicio" src="https://www.soundjay.com/mechanical/sounds/mechanical-gear-1.mp3"></audio>
+<div class="header">Lamborghini Temerario</div>
+<div class="nav">
+    <a href="#" onclick="showSection('inicio')" class="active">Inicio</a>
+    <a href="#" onclick="showSection('cotizaciones')">Cotizaciones</a>
+    <a href="#" onclick="showSection('contacto')">Contacto</a>
+    <a href="#" onclick="showSection('ubicacion')">Ubícanos</a>
+</div>
 
-    <!-- Audio -->
-    <audio id="sonido-inicio" src="https://www.soundjay.com/button/sounds/button-16.mp3"  preload="auto"></audio>
-
-    <!-- Header -->
-    <div class="header">Temerario - La Máquina Definitiva</div>
-
-    <!-- Menú de navegación -->
-    <nav class="nav">
-        <a onclick="showSection('inicio')">Inicio</a>
-        <a onclick="showSection('cotizaciones')">Cotizaciones</a>
-        <a onclick="showSection('contacto')">Contacto</a>
-        <a onclick="showSection('ubicacion')">Ubícanos</a>
-    </nav>
-
-    <!-- Sección Inicio -->
-    <div id="inicio" class="section active">
-        <div class="hero">Velocidad, Potencia, Diseño</div>
-        <section class="about">
-            <div class="about-text">
-                <h2>TEMERARIO</h2>
-                <p>Lamborghini presenta el Temerario, el primer superdeportivo de la historia de la marca 
-                    de Sant’Agata Bolognese, equipado con un motor V8 biturbo combinado con tres motores 
-                    eléctricos que ofrece una potencia máxima total de 920 CV.</p>
-            </div>
-            <img src="https://raw.githubusercontent.com/EdgarJazyel/LAMBORGHINI-TEMERARIO/refs/heads/gh-pages/sketch1.webp"  alt="Temerario">
-        </section>
-        <div class="carousel">
-            <img src="https://github.com/EdgarJazyel/LAMBORGHINI-TEMERARIO/blob/gh-pages/frente_temer.jpeg?raw=true" alt="Frente Temerario">
-            <img src="https://github.com/EdgarJazyel/LAMBORGHINI-TEMERARIO/blob/gh-pages/lado_temer.jpg?raw=true" alt="Lateral Temerario">
-            <img src="https://raw.githubusercontent.com/EdgarJazyel/LAMBORGHINI-TEMERARIO/refs/heads/gh-pages/temerario_08.webp" alt="Interior Temerario">
+<div id="inicio" class="section active">
+    <div class="hero">Velocidad, Potencia, Diseño</div>
+    <section class="about">
+        <div class="about-text">
+            <h2>TEMERARIO</h2>
+            <p>Lamborghini presenta el Temerario, el primer superdeportivo de la historia de la marca 
+                de Sant’Agata Bolognese, equipado con un motor V8 biturbo combinado con tres motores 
+                eléctricos que ofrece una potencia máxima total de 920 CV. El segundo vehículo de la gama 
+                HPEV (vehículo eléctrico de alto rendimiento) se sitúa en la cumbre del placer de conducción gracias a unas prestaciones y un confort únicos en su categoría. Además, estrena nuevos cánones estilísticos en cuanto a diseño, 
+                ofreciendo posibilidades de personalización sin precedentes y contenidos 
+                inéditos de conectividad</p>
         </div>
-        <div class="specs">
-            <h3>Especificaciones Técnicas</h3>
-            <table>
-                <tr><th>Característica</th><th>Valor</th></tr>
-                <tr><td>Motor</td><td>V12 6.5L híbrido</td></tr>
-                <tr><td>Potencia</td><td>950 HP</td></tr>
-                <tr><td>Velocidad Máxima</td><td>370 km/h</td></tr>
-                <tr><td>Aceleración (0-100 km/h)</td><td>2.5 segundos</td></tr>
-                <tr><td>Transmisión</td><td>Automática de 7 velocidades</td></tr>
-                <tr><td>Chasis</td><td>Fibra de carbono y titanio</td></tr>
-                <tr><td>Sistema de frenos</td><td>Cerámicos de alto rendimiento</td></tr>
-            </table>
-            <div class="cta"><a href="https://www.lamborghini.com" target="_blank">Ver más</a></div>
-        </div>
-        <div class="video">
-            <h2>Video Promocional</h2>
-            <iframe width="75%" height="400px" src="https://www.youtube.com/embed/6tgeJ5ZPbL8" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <p class="footer">Marca registrada &copy; Lamborghini 2025. Todos los derechos reservados.</p>
+        <img src="https://raw.githubusercontent.com/EdgarJazyel/LAMBORGHINI-TEMERARIO/refs/heads/gh-pages/sketch1.webp" alt="Temerario" />
+    </section>
+    <div class="carousel">
+        <img src="https://github.com/EdgarJazyel/LAMBORGHINI-TEMERARIO/blob/gh-pages/frente_temer.jpeg?raw=true" alt="Frente Temerario" />
+        <img src="https://github.com/EdgarJazyel/LAMBORGHINI-TEMERARIO/blob/gh-pages/lado_temer.jpg?raw=true" alt="Lateral Temerario" />
+        <img src="https://raw.githubusercontent.com/EdgarJazyel/LAMBORGHINI-TEMERARIO/refs/heads/gh-pages/temerario_08.webp" alt="Interior Temerario" />
     </div>
+    <div class="specs">
+        <h3>Especificaciones Técnicas</h3>
+        <section id="especificaciones" style="padding: 20px; background-color: #111; color: #fff;">
+  <h2 style="text-align:center; margin-bottom: 20px;">Especificaciones Técnicas</h2>
+  <table style="width: 100%; border-collapse: collapse; color: #fff;">
+    <thead>
+      <tr style="border-bottom: 1px solid #444;">
+        <th style="padding: 8px;">Característica</th>
+        <th style="padding: 8px;">Detalle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom: 1px solid #333;">
+        <td style="padding: 8px;">Motor</td>
+        <td style="padding: 8px;">V12, 6.5 litros</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #333;">
+        <td style="padding: 8px;">Potencia</td>
+        <td style="padding: 8px;">770 hp</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #333;">
+        <td style="padding: 8px;">Aceleración 0-100 km/h</td>
+        <td style="padding: 8px;">2.8 segundos</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #333;">
+        <td style="padding: 8px;">Velocidad máxima</td>
+        <td style="padding: 8px;">350 km/h</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px;">Transmisión</td>
+        <td style="padding: 8px;">Automática de 7 velocidades</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
 
-    <!-- Sección Ubicación -->
-    <section id="ubicacion" class="section">
-        <h2>Encuentra un concesionario</h2>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d481808.1110695941!2d-99.7587633265625!3d19.363701900000013!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff8c51a68677%3A0x38bc755f8b7be620!2sLamborghini%20M%C3%A9xico!5e0!3m2!1ses!2smx!4v1743450579515!5m2!1ses!2smx" width="600" height="450" style="border:0;" allowfullscreen loading="lazy"></iframe>
-    </section>
+    </div>
+    <div class="video">
+        <h2>Video Promocional</h2>
+        <iframe src="https://www.youtube.com/embed/6tgeJ5ZPbL8" allowfullscreen></iframe>
+    </div>
+    <p class="footer">Marca registrada &copy; Lamborghini 2025. Todos los derechos reservados.</p>
+</div>
 
-    <!-- Sección Contacto -->
-    <section id="contacto" class="section">
-        <h2>Contáctanos</h2>
-        <div class="contact-form">
-            <form>
-                <input type="text" name="nombre" placeholder="Tu nombre" required><br>
-                <input type="email" name="email" placeholder="Tu correo electrónico" required><br>
-                <textarea name="mensaje" placeholder="Tu mensaje" rows="5" required></textarea><br>
-                <button type="submit">Enviar</button>
-                <p>También puedes contactarnos por correo electrónico:  
-                    <a href="https://outlook.office.com/mail/" target="_blank">Lamborghini Oficial</a>
-                 </p>
-            </form>
-        </div>
-    </section>
-
-    <!-- Sección Cotizaciones -->
-    <div id="cotizaciones" class="section">
-        <h2>Generar Cotización</h2>
-        <select id="modelo">
-            <option>Temerario V8</option>
-            <option>Temerario Híbrido</option>
-        </select>
-        <input type="number" id="cantidad" min="1" placeholder="Cantidad">
+<div id="cotizaciones" class="section">
+    <h2>Generar Cotización</h2>
+    <input type="text" id="nombre" placeholder="Nombre completo" required />
+    <input type="text" id="direccion" placeholder="Dirección" required />
+    <input type="tel" id="telefono" placeholder="Teléfono" required />
+    <select id="modelo">
+        <option>Temerario V8</option>
+        <option>Temerario Híbrido</option>
+    </select>
+    <input type="number" id="cantidad" min="1" placeholder="Cantidad" />
+    <div style="display:flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
         <button onclick="generarPDF()">Generar Cotización (PDF)</button>
-        <button onclick="eliminarCotizaciones()">Eliminar Cotizaciones</button>
-        <div class="historial" id="historial"></div>
-        <div id="pdf-preview"></div>
+        <button onclick="eliminarCotizaciones()" style="background:#444; box-shadow:none;">Eliminar todas</button>
     </div>
+    <div id="pdf-preview"></div>
+    <div class="historial">
+        <h3>Historial de Cotizaciones</h3>
+        <div id="historial-cotizaciones"></div>
+    </div>
+    <section id="simulador" style="max-width:600px; margin:20px auto; padding:20px; background:#222; border-radius:12px; box-shadow: 0 0 20px #e63946aa; color:#eee; font-family: 'Poppins', sans-serif;">
+  <h2 style="color:#e63946; font-family: 'Orbitron', sans-serif; text-align:center;">Simulador de Seguro</h2>
 
-    <!-- Carga de jsPDF desde CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <label for="tipoSeguro">Tipo de Seguro:</label>
+  <select id="tipoSeguro" style="width:100%; padding:10px; border-radius:8px; border:none; background:#333; color:#eee; margin-bottom:15px;">
+    <option value="basico" data-precio="2000">Básico - $2,000</option>
+    <option value="intermedio" data-precio="4500">Intermedio - $4,500</option>
+    <option value="completo" data-precio="7000">Completo - $7,000</option>
+  </select>
 
-    <!-- Script principal -->
-    <script>
-        // Función para reproducir sonido
-        function reproducirSonido() {
-            const sonido = document.getElementById("sonido-inicio");
-            if (sonido) {
-                sonido.play().catch(e => console.log("Error al reproducir sonido", e));
-            }
-        }
+  <label>Extras:</label>
+  <div style="margin-bottom:15px;">
+    <label style="display:block; margin-bottom:6px;">
+      <input type="checkbox" class="extras" data-precio="500" data-nombre="Asistencia en viaje" /> Asistencia en viaje (+ $500)
+    </label>
+    <label style="display:block; margin-bottom:6px;">
+      <input type="checkbox" class="extras" data-precio="1200" data-nombre="Cobertura contra robo" /> Cobertura contra robo (+ $1,200)
+    </label>
+    <label style="display:block; margin-bottom:6px;">
+      <input type="checkbox" class="extras" data-precio="800" data-nombre="Vehículo sustituto" /> Vehículo sustituto (+ $800)
+    </label>
+  </div>
 
-        // Mostrar sección seleccionada
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
-            document.getElementById(sectionId).classList.add('active');
-        }
+  <label for="duracion">Duración (meses):</label>
+  <input id="duracion" type="number" min="1" max="12" value="1" style="width:100px; padding:10px; border-radius:8px; border:none; background:#333; color:#eee; margin-bottom:15px;" />
 
-        // Generar PDF usando jsPDF
-        function generarPDF() {
-            // Verificar si jsPDF está cargado
-            if (typeof window.jspdf === "undefined") {
-                alert("jsPDF no está cargado.");
-                return;
-            }
+  <div style="text-align:center; font-size:1.4rem; font-weight:700; color:#e63946;">
+    Precio Total: $<span id="precioTotal">2000</span>
+  </div>
+</section>
 
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+<script>
+  function actualizarPrecio() {
+    const tipoSeguroSelect = document.getElementById('tipoSeguro');
+    const precioBase = parseInt(tipoSeguroSelect.selectedOptions[0].dataset.precio);
+    const duracion = parseInt(document.getElementById('duracion').value) || 1;
 
-            const modelo = document.getElementById("modelo").value;
-            const cantidad = parseInt(document.getElementById("cantidad").value);
+    const extrasChecked = document.querySelectorAll('.extras:checked');
+    let extrasTotal = 0;
+    extrasChecked.forEach(extra => {
+      extrasTotal += parseInt(extra.dataset.precio);
+    });
 
-            // Validación
-            if (!modelo || isNaN(cantidad) || cantidad <= 0) {
-                alert("Por favor selecciona un modelo y cantidad válidos.");
-                return;
-            }
+    const total = (precioBase + extrasTotal) * duracion;
+    document.getElementById('precioTotal').textContent = total.toLocaleString('es-MX');
+  }
 
-            const precioUnitario = modelo.includes("Híbrido") ? 480000 : 400000;
-            const subtotal = cantidad * precioUnitario;
-            const impuestos = subtotal * 0.16;
-            const total = subtotal + impuestos;
+  document.getElementById('tipoSeguro').addEventListener('change', actualizarPrecio);
+  document.getElementById('duracion').addEventListener('input', actualizarPrecio);
+  document.querySelectorAll('.extras').forEach(chk => chk.addEventListener('change', actualizarPrecio));
 
-            // Contenido del PDF
-            doc.setFontSize(16);
-            doc.text("Cotización Oficial Lamborghini", 20, 20);
-            doc.setFontSize(12);
-            doc.text(`Modelo: ${modelo}`, 20, 40);
-            doc.text(`Cantidad: ${cantidad}`, 20, 50);
-            doc.text(`Precio Unitario: $${precioUnitario.toLocaleString()}`, 20, 60);
-            doc.text(`Subtotal: $${subtotal.toLocaleString()}`, 20, 70);
-            doc.text(`Impuestos (16%): $${impuestos.toLocaleString()}`, 20, 80);
-            doc.text(`Total: $${total.toLocaleString()}`, 20, 90);
-            doc.text("Gracias por su preferencia. Esta cotización es válida por 15 días.", 20, 110);
-            doc.text("[Firma Digital de Lamborghini]", 20, 120);
+  actualizarPrecio();
+</script>
+<button id="generarPDF" style="display:block; margin: 10px auto; padding: 12px 25px; font-size:1.2rem; background:#e63946; color:#fff; border:none; border-radius:10px; cursor:pointer;">
+  Descargar Cotización PDF
+</button>
 
-            // Generar y mostrar PDF
-            const pdfBlob = new Blob([doc.output("arraybuffer")], { type: "application/pdf" });
-            const url = URL.createObjectURL(pdfBlob);
-            document.getElementById("pdf-preview").innerHTML = `<iframe src="${url}"></iframe>`;
-            doc.save(`cotizacion-${modelo}.pdf`);
+</div>
 
-            guardarCotizacion(`${modelo} x${cantidad} - Total: $${total.toLocaleString()} USD`);
-        }
+<div id="contacto" class="section">
+    <h2>Contacto</h2>
+    <form onsubmit="return enviarMensaje(event)">
+        <input type="text" id="nombreContacto" placeholder="Nombre completo" required />
+        <input type="email" id="emailContacto" placeholder="Correo electrónico" required />
+        <textarea id="mensajeContacto" placeholder="Escribe tu mensaje aquí..." required></textarea>
+        <button type="submit">Enviar Mensaje</button>
+    </form>
+</div>
 
-        // Guardar cotización en localStorage
-        function guardarCotizacion(texto) {
-            let cotizaciones = JSON.parse(localStorage.getItem("cotizaciones")) || [];
-            cotizaciones.push(texto);
-            localStorage.setItem("cotizaciones", JSON.stringify(cotizaciones));
-            actualizarHistorial();
-        }
+<div id="ubicacion" class="section">
+    <h2>Ubicación</h2>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d481808.11106959457!2d-99.7587633265625!3d19.363701900000013!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff8c51a68677%3A0x38bc755f8b7be620!2sLamborghini%20M%C3%A9xico!5e0!3m2!1ses!2smx!4v1749737309211!5m2!1ses!2smx" width="600" height="450" style="border:0;" 
+      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+      
+</div>
 
-        // Actualizar historial de cotizaciones
-        function actualizarHistorial() {
-            const contenedor = document.getElementById("historial");
-            const cotizaciones = JSON.parse(localStorage.getItem("cotizaciones")) || [];
-            contenedor.innerHTML = '<h3>Historial de Cotizaciones</h3>' +
-                cotizaciones.map(c => `<div class='cotizacion-item'>${c}</div>`).join("");
-        }
-
-        // Eliminar historial
-        function eliminarCotizaciones() {
-            localStorage.removeItem("cotizaciones");
-            actualizarHistorial();
-        }
-
-        // Mostrar sección activa al cargar
-        document.addEventListener("DOMContentLoaded", () => {
-            showSection('inicio');
-            actualizarHistorial();
+<script>
+function reproducirSonido() {
+    const sonido = document.getElementById('sonido-inicio');
+    if (sonido) {
+        sonido.play().catch(() => {
+            // Algunos navegadores requieren interacción del usuario para reproducir sonido
         });
-    </script>
+    }
+}
+
+function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelector('.nav a[href="#"][onclick*="' + id + '"]').classList.add('active');
+}
+
+// Manejo de cotizaciones
+let historialCotizaciones = JSON.parse(localStorage.getItem('cotizaciones')) || [];
+
+function mostrarHistorial() {
+    const contenedor = document.getElementById('historial-cotizaciones');
+    contenedor.innerHTML = '';
+    if (historialCotizaciones.length === 0) {
+        contenedor.innerHTML = '<p>No hay cotizaciones guardadas.</p>';
+        return;
+    }
+    historialCotizaciones.forEach((cot, i) => {
+        const div = document.createElement('div');
+        div.className = 'cotizacion-item';
+        div.innerHTML = `
+            <span><strong>${cot.nombre}</strong> - ${cot.modelo} x ${cot.cantidad}</span>
+            <button onclick="borrarCotizacion(${i})" aria-label="Eliminar cotización">&#x2716;</button>
+        `;
+        contenedor.appendChild(div);
+    });
+}
+
+function borrarCotizacion(indice) {
+    historialCotizaciones.splice(indice, 1);
+    localStorage.setItem('cotizaciones', JSON.stringify(historialCotizaciones));
+    mostrarHistorial();
+}
+
+function eliminarCotizaciones() {
+    if (confirm('¿Estás seguro que quieres eliminar todas las cotizaciones?')) {
+        historialCotizaciones = [];
+        localStorage.removeItem('cotizaciones');
+        mostrarHistorial();
+        document.getElementById('pdf-preview').innerHTML = '';
+    }
+}
+
+function generarPDF() {
+    const nombre = document.getElementById('nombre').value.trim();
+    const direccion = document.getElementById('direccion').value.trim();
+    const telefono = document.getElementById('telefono').value.trim();
+    const modelo = document.getElementById('modelo').value;
+    const cantidad = parseInt(document.getElementById('cantidad').value) || 1;
+
+    if (!nombre || !direccion || !telefono) {
+        alert('Por favor, completa todos los campos obligatorios.');
+        return;
+    }
+
+    // Datos del simulador de seguro
+    const tipoSeguroSelect = document.getElementById('tipoSeguro');
+    const tipoSeguro = tipoSeguroSelect ? tipoSeguroSelect.selectedOptions[0].text : 'No seleccionado';
+
+    const duracionSeguro = document.getElementById('duracion') ? document.getElementById('duracion').value : 'No especificado';
+
+    const extrasChecked = document.querySelectorAll('.extraSeguro:checked');
+    const extrasList = Array.from(extrasChecked).map(e => e.dataset.nombre || e.value);
+
+    const precioSeguro = document.getElementById('precioSeguro') ? document.getElementById('precioSeguro').textContent : '0';
+
+    // Generación del PDF
+    const doc = new jspdf.jsPDF();
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(24);
+    doc.setTextColor('#e63946');
+    doc.text('Cotización de Lamborghini Temerario', 20, 30);
+
+    doc.setFontSize(14);
+    doc.setTextColor('#000');
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Nombre: ${nombre}`, 20, 50);
+    doc.text(`Dirección: ${direccion}`, 20, 60);
+    doc.text(`Teléfono: ${telefono}`, 20, 70);
+    doc.text(`Modelo: ${modelo}`, 20, 80);
+    doc.text(`Cantidad: ${cantidad}`, 20, 90);
+
+    const precioUnitario = modelo.includes('Híbrido') ? 350000 : 320000; // Ejemplo de precios
+    const total = precioUnitario * cantidad;
+
+    doc.text(`Precio unitario: $${precioUnitario.toLocaleString()}`, 20, 100);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`Total: $${total.toLocaleString()}`, 20, 110);
+
+    // Agregar info del seguro justo debajo
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(12);
+
+    let yPos = 120;
+    doc.text('--- Detalles del Seguro ---', 20, yPos);
+    yPos += 10;
+    doc.text(`Tipo de Seguro: ${tipoSeguro}`, 20, yPos);
+    yPos += 10;
+    doc.text(`Duración: ${duracionSeguro} mes(es)`, 20, yPos);
+    yPos += 10;
+    if (extrasList.length) {
+  doc.text('Extras:', 20, yPos);
+  yPos += 10;
+  extrasList.forEach(extra => {
+    doc.text(`- ${extra.nombre}: $${extra.precio.toLocaleString()}`, 25, yPos);
+    yPos += 10;
+  });
+} else {
+  doc.text('Extras: Ninguno', 20, yPos);
+  yPos += 10;
+}
+    doc.text(`Precio del Seguro: $${precioSeguro}`, 20, yPos);
+
+    const pdfDataUri = doc.output('datauristring');
+
+    document.getElementById('pdf-preview').innerHTML = `<iframe src="${pdfDataUri}" style="width:100%; height:400px;"></iframe>`;
+
+    // Guardar cotización
+    historialCotizaciones.push({ nombre, direccion, telefono, modelo, cantidad, total, tipoSeguro, duracionSeguro, extrasList, precioSeguro });
+    localStorage.setItem('cotizaciones', JSON.stringify(historialCotizaciones));
+    mostrarHistorial();
+}
+
+
+// Mostrar historial al cargar
+mostrarHistorial();
+</script>
+
 </body>
 </html>
